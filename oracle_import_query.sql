@@ -1,0 +1,4 @@
+SELECT RRS_oracle_import.Netid, RRS_oracle_import.Title, RRS_oracle_import.[First_Name], RRS_oracle_import.[Middle_Name], RRS_oracle_import.[Last_Name], RRS_oracle_import.[Email_Alias], RRS_oracle_import.[Work_Phone], RRS_School_Xref.RRS_Include AS Sch_Incl, RRS_Role_Xref.RRS_Include AS Role_Incl
+FROM ((RRS_oracle_import LEFT JOIN RRS_School_Xref ON RRS_oracle_import.School = RRS_School_Xref.Ban_SchCode) LEFT JOIN RRS_Role_Xref ON RRS_oracle_import.Role = RRS_Role_Xref.[ACS1_Role]) LEFT JOIN RRS_OracleOrg_Xref ON RRS_oracle_import.[Organization_Id] = RRS_OracleOrg_Xref.[Organization_Id]
+WHERE (((RRS_School_Xref.RRS_Include) <> 'X' Or (RRS_School_Xref.RRS_Include) Is Null))
+ORDER BY RRS_oracle_import.Netid, ISNULL(RRS_OracleOrg_Xref.RRS_Unit,[RRS_School_Xref].RRS_Unit);
